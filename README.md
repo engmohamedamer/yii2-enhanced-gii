@@ -15,13 +15,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```bash
-$ composer require engmohmaedamer/yii2-enhanced-gii:@dev
+$ composer require engmohamedamer/yii2-enhanced-gii:@dev
 ```
 
 or add
 
 ```
-"engmohmaedamer/yii2-enhanced-gii": "@dev"
+"engmohamedamer/yii2-enhanced-gii": "@dev"
 ```
 
 to the `require` section of your `composer.json` file.
