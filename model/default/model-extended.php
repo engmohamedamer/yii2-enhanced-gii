@@ -17,7 +17,6 @@ echo "<?php\n";
 
 namespace <?= $generator->nsModel ?>;
 
-use Yii;
 use \<?= $generator->nsModel ?>\base\<?= $className ?> as Base<?= $className ?>;
 
 /**
@@ -25,14 +24,14 @@ use \<?= $generator->nsModel ?>\base\<?= $className ?> as Base<?= $className ?>;
  */
 class <?= $className ?> extends Base<?= $className . "\n" ?>
 {
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return array_replace_recursive(parent::rules(),
-	    [<?= "\n            " . implode(",\n            ", $rules) . "\n        " ?>]);
-    }
+//    /**
+//     * @inheritdoc
+//     */
+//    public function rules()
+//    {
+//        return array_replace_recursive(parent::rules(),
+//	    []);
+//    }
 	
 <?php if ($generator->generateAttributeHints): ?>
     /**
