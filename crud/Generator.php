@@ -1,4 +1,5 @@
 <?php
+
 namespace mootensai\enhancedgii\crud;
 
 use \Yii;
@@ -284,7 +285,7 @@ class Generator extends \yii\gii\Generator
         $db = $this->getDbConnection();
         if ($db !== null) {
             return [
-                'tableName' => function() use ($db) {
+                'tableName' => function () use ($db) {
                     return $db->getSchema()->getTableNames();
                 },
             ];
@@ -1156,11 +1157,94 @@ class Generator extends \yii\gii\Generator
                     $dropDownOptions[$enumValue] = $this->generateString(Inflector::humanize($enumValue));
                 }
                 return "\$form->field(\$model, '$attribute')->dropDownList("
-                . preg_replace("/\n\s*/", ' ', VarDumper::export($dropDownOptions)) . ", ['prompt' => ''])";
+                    . preg_replace("/\n\s*/", ' ', VarDumper::export($dropDownOptions)) . ", ['prompt' => ''])";
             } elseif ($column->phpType !== 'string' || $column->size === null) {
                 return "\$form->field(\$model, '$attribute')->$input(['placeholder' => Yii::t('app', '$placeholder')])";
             } else {
                 return "\$form->field(\$model, '$attribute')->$input(['maxlength' => true, 'placeholder' => Yii::t('app', '$placeholder')])";
+            }
+        }
+    }
+
+
+    /**
+     * Generates code for active field
+     * @param string $attribute
+     * @return string
+     */
+    public function generateActiveFormField($attribute, $fk, $tableSchema = null)
+    {
+        if (is_null($tableSchema)) {
+            $tableSchema = $this->getTableSchema();
+        }
+        if (in_array($attribute, $this->hiddenColumns)) {
+            return "\$form->field(\$model, '$attribute', ['template' => '{input}'])->textInput(['style' => 'display:none']);";
+        }
+        $placeholder = Inflector::humanize($attribute, true);
+        if ($tableSchema === false || !isset($tableSchema->columns[$attribute])) {
+            if (preg_match('/^(password|pass|passwd|passcode)$/i', $attribute)) {
+                return "\$form->field(\$model, '$attribute')->passwordInput()";
+            } else if (in_array($attribute, $this->hiddenColumns)) {
+                return "\$form->field(\$model, '$attribute')->hiddenInput()";
+            } else {
+                return "\$form->field(\$model, '$attribute')";
+            }
+        }
+        $column = $tableSchema->columns[$attribute];
+        if ($column->phpType === 'boolean' || $column->dbType === 'tinyint(1)') {
+            return "\$form->field(\$model, '$attribute')->checkbox()";
+        } elseif ($column->type === 'text' || $column->dbType === 'tinytext') {
+            return "\$form->field(\$model, '$attribute')->textarea(['rows' => 6])";
+        } elseif ($column->dbType === 'date') {
+            return "\$form->field(\$model, '$attribute')->widget(\kartik\widgets\DatePicker::classname(), [
+        'options' => ['placeholder' => " . $this->generateString('Choose ' . $placeholder) . "],
+        'type' => \kartik\widgets\DatePicker::TYPE_COMPONENT_APPEND,
+        'pluginOptions' => [
+            'autoclose' => true,
+            'format' => 'dd-M-yyyy'
+        ]
+    ]);";
+        } elseif ($column->dbType === 'time') {
+            return "\$form->field(\$model, '$attribute')->widget(\kartik\widgets\TimePicker::className());";
+        } elseif ($column->dbType === 'datetime') {
+            return "\$form->field(\$model, '$attribute')->widget(\kartik\widgets\DateTimePicker::classname(), [
+        'options' => ['placeholder' => " . $this->generateString('Choose ' . $placeholder) . "],
+        'pluginOptions' => [
+            'autoclose' => true,
+            'format' => 'mm/dd/yyyy hh:ii:ss'
+        ]
+    ])";
+        } elseif (array_key_exists($column->name, $fk)) {
+            $rel = $fk[$column->name];
+            $labelCol = $this->getNameAttributeFK($rel[3]);
+            $humanize = Inflector::humanize($rel[3]);
+//            $pk = empty($this->tableSchema->primaryKey) ? $this->tableSchema->getColumnNames()[0] : $this->tableSchema->primaryKey[0];
+            $fkClassFQ = "\\" . $this->nsModel . "\\" . $rel[1];
+            $output = "\$form->field(\$model, '$attribute')->widget(\kartik\widgets\Select2::classname(), [
+        'data' => \yii\helpers\ArrayHelper::map($fkClassFQ::find()->orderBy('$rel[4]')->asArray()->all(), '$rel[4]', '$labelCol'),
+        'options' => ['placeholder' => " . $this->generateString('Choose ' . $humanize) . "],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ])";
+            return $output;
+        } else {
+            if (preg_match('/^(password|pass|passwd|passcode)$/i', $column->name)) {
+                $input = 'passwordInput';
+            } else {
+                $input = 'textInput';
+            }
+            if (is_array($column->enumValues) && count($column->enumValues) > 0) {
+                $dropDownOptions = [];
+                foreach ($column->enumValues as $enumValue) {
+                    $dropDownOptions[$enumValue] = $this->generateString(Inflector::humanize($enumValue));
+                }
+                return "\$form->field(\$model, '$attribute')->dropDownList("
+                    . preg_replace("/\n\s*/", ' ', VarDumper::export($dropDownOptions)) . ", ['prompt' => ''])";
+            } elseif ($column->phpType !== 'string' || $column->size === null) {
+                return "        '$attribute' => []";
+            } else {
+                return "        '$attribute' => []";
             }
         }
     }
@@ -1238,7 +1322,7 @@ class Generator extends \yii\gii\Generator
                     $dropDownOptions[$enumValue] = Inflector::humanize($enumValue);
                 }
                 return "\$form->field(\$model, '$attribute')->dropDownList("
-                . preg_replace("/\n\s*/", ' ', VarDumper::export($dropDownOptions)) . ", ['prompt' => ''])";
+                    . preg_replace("/\n\s*/", ' ', VarDumper::export($dropDownOptions)) . ", ['prompt' => ''])";
             } elseif ($column->phpType !== 'string' || $column->size === null) {
                 return "\$form->field(\$model, '$attribute')->$input()";
             } else {
@@ -1650,6 +1734,16 @@ class Generator extends \yii\gii\Generator
     public function getColumnNames()
     {
         return $this->getTableSchema()->getColumnNames();
+    }
+
+    /**
+     * @param $class
+     * @return string
+     */
+
+    public function getSimpleClass($class)
+    {
+        return array_pop(explode('\\', $class));
     }
 
 }
