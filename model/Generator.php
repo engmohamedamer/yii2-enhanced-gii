@@ -33,7 +33,8 @@ use \yii\helpers\VarDumper;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class Generator extends \yii\gii\Generator {
+class Generator extends \yii\gii\Generator
+{
     /* @var $tableSchema TableSchema */
 
     public $tableSchema;
@@ -79,21 +80,24 @@ class Generator extends \yii\gii\Generator {
     /**
      * @inheritdoc
      */
-    public function getName() {
+    public function getName()
+    {
         return 'IO Generator (Model)';
     }
 
     /**
      * @inheritdoc
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return 'This generator generates model operations for the database.';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules() {
+    public function rules()
+    {
         return array_merge(parent::rules(), [
             [['db', 'nsModel', 'viewPath', 'nsController', 'nsTraits', 'tableName', 'modelClass', 'searchModelClass', 'nsSearchModel', 'baseControllerClass', 'queryNs', 'nsController'], 'filter', 'filter' => 'trim'],
             [['tableName', 'baseControllerClass', 'indexWidgetType', 'db'], 'required'],
@@ -111,10 +115,10 @@ class Generator extends \yii\gii\Generator {
 //            [['modelClass'], 'validateModelClass'],
             [['enableI18N', 'generateRelations', 'generateQuery', 'generateLabelsFromComments',
                 'useTablePrefix', 'generateMigrations', 'generateAttributeHints', 'generateBaseOnly'], 'boolean'],
-            
+
             [['messageCategory'], 'validateMessageCategory', 'skipOnEmpty' => false],
-            
-            [['viewPath', 'skippedRelations', 'skippedColumns', 'controllerClass', 
+
+            [['viewPath', 'skippedRelations', 'skippedColumns', 'controllerClass',
                 'blameableValue', 'nameAttribute', 'hiddenColumns', 'timestampValue',
                 'optimisticLock', 'createdAt', 'updatedAt', 'createdBy', 'updatedBy',
                 'blameableValue', 'UUIDColumn', 'deletedBy', 'deletedAt'], 'safe'],
@@ -124,7 +128,8 @@ class Generator extends \yii\gii\Generator {
     /**
      * @inheritdoc
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return array_merge(parent::attributeLabels(), [
             'db' => 'Database Connection ID',
             'nsTraits' => 'Trait Namespace',
@@ -149,7 +154,8 @@ class Generator extends \yii\gii\Generator {
     /**
      * @inheritdoc
      */
-    public function hints() {
+    public function hints()
+    {
         return array_merge(parent::hints(), [
             'db' => 'This is the ID of the DB application component.',
             'tableName' => 'This is the name of the DB table that the new ActiveRecord class is associated with, e.g. <code>post</code>.
@@ -161,7 +167,7 @@ class Generator extends \yii\gii\Generator {
                 class.',
             'nsTraits' => 'This is the namespace of the traits to be generated, e.g., <code>app\traits</code>',
             'nameAttribute' => 'This is the (set) of name column that you use to show as label, '
-            . 'separated by comma (,) for multiple table(asterisk on Table Name).',
+                . 'separated by comma (,) for multiple table(asterisk on Table Name).',
             'skippedColumns' => 'Fill this field with the column name that you dont want to generate form & labels for the table. 
                 You can fill multiple columns, separated by comma (,). You may specify the column name
                 although "Table Name" ends with asterisk, in which case all columns will not be generated at all models & CRUD.',
@@ -191,31 +197,31 @@ class Generator extends \yii\gii\Generator {
             'generateMigrations' => 'This indicates whether the generator should generate migrations based on
                 table structure.',
             'optimisticLock' => 'This indicates whether the generator should generate optimistic lock feature for Model. '
-            . 'Enter this field with optimistic lock column name. '
-            . 'Empty this field if you want to disable this feature.',
+                . 'Enter this field with optimistic lock column name. '
+                . 'Empty this field if you want to disable this feature.',
             'createdAt' => 'This indicates whether the generator should generate Timestamp Behaviors feature for Model. '
-            . 'Enter this field with Created At column name. '
-            . 'Empty "Created At" & "Updated At" field if you want to disable this feature.',
+                . 'Enter this field with Created At column name. '
+                . 'Empty "Created At" & "Updated At" field if you want to disable this feature.',
             'updatedAt' => 'This indicates whether the generator should generate Timestamp Behaviors feature for Model. '
-            . 'Enter this field with Updated At column name. '
-            . 'Empty "Created At" & "Updated At" field if you want to disable this feature.',
+                . 'Enter this field with Updated At column name. '
+                . 'Empty "Created At" & "Updated At" field if you want to disable this feature.',
             'timestampValue' => 'This will generate the </code>value</code> configuration entry for Timestamp Behaviors.  e.g., <code>new Expression(\'NOW()\')</code>',
             'createdBy' => 'This indicates whether the generator should generate Blameable Behaviors feature for Model. '
-            . 'Enter this field with Created By column name. '
-            . 'Empty "Created By" & "Updated By" field if you want to disable this feature.',
+                . 'Enter this field with Created By column name. '
+                . 'Empty "Created By" & "Updated By" field if you want to disable this feature.',
             'updatedBy' => 'This indicates whether the generator should generate Blameable Behaviors feature for Model. '
-            . 'Enter this field with Updated By column name. '
-            . 'Empty "Created By" & "Updated By" field if you want to disable this feature.',
+                . 'Enter this field with Updated By column name. '
+                . 'Empty "Created By" & "Updated By" field if you want to disable this feature.',
             'blameableValue' => 'This will generate the </code>value</code> configuration entry for Blameable Behaviors.  e.g., <code>new Expression(\'NOW()\')</code>',
             'UUIDColumn' => 'This indicates whether the generator should generate UUID Behaviors feature for Model. '
-            . 'Enter this field with UUID column name. '
-            . 'Empty "UUID Column" field if you want to disable this feature.',
+                . 'Enter this field with UUID column name. '
+                . 'Empty "UUID Column" field if you want to disable this feature.',
             'deletedBy' => 'This indicates whether the generator should generate Soft Delete feature for Model. '
-            . 'Enter this field with Deleted By column name. '
-            . 'Empty "Deleted By" & "Deleted At" field if you want to disable this feature.',
+                . 'Enter this field with Deleted By column name. '
+                . 'Empty "Deleted By" & "Deleted At" field if you want to disable this feature.',
             'deletedAt' => 'This indicates whether the generator should generate Soft Delete feature for Model. '
-            . 'Enter this field with Updated By column name. '
-            . 'Empty "Deleted By" & "Deleted At" field if you want to disable this feature.',
+                . 'Enter this field with Updated By column name. '
+                . 'Empty "Deleted By" & "Deleted At" field if you want to disable this feature.',
             'nsController' => 'This is the namespace of the Controller class to be generated, e.g., <code>app\controllers</code>',
             'controllerClass' => 'This is the name of the Controller class to be generated. The class name should not contain
                 the namespace part as it is specified in "Controller Namespace". You do not need to specify the class name
@@ -240,14 +246,15 @@ class Generator extends \yii\gii\Generator {
                 if "Table Name" ends with asterisk, in which case multiple ActiveQuery classes will be generated.',
             'queryBaseClass' => 'This is the base class of the new ActiveQuery class. It should be a fully qualified namespaced class name.',
             'generateBaseOnly' => 'This indicates whether the generator should generate extended model(where you write your code) or not. '
-            . 'You usually re-generate models when you make changes on your database.'
+                . 'You usually re-generate models when you make changes on your database.'
         ]);
     }
 
     /**
      * @inheritdoc
      */
-    public function stickyAttributes() {
+    public function stickyAttributes()
+    {
         return array_merge(parent::stickyAttributes(), [
             'db',
             'skippedColumns',
@@ -278,11 +285,12 @@ class Generator extends \yii\gii\Generator {
     /**
      * @inheritdoc
      */
-    public function autoCompleteData() {
+    public function autoCompleteData()
+    {
         $db = $this->getDbConnection();
         if ($db !== null) {
             return [
-                'tableName' => function() use ($db) {
+                'tableName' => function () use ($db) {
                     return $db->getSchema()->getTableNames();
                 },
             ];
@@ -294,14 +302,16 @@ class Generator extends \yii\gii\Generator {
     /**
      * @inheritdoc
      */
-    public function requiredTemplates() {
+    public function requiredTemplates()
+    {
         return ['model.php'];
     }
 
     /**
      * Checks if model class is valid
      */
-    public function validateModelClass() {
+    public function validateModelClass()
+    {
         $pk = $this->tableSchema->primaryKey;
         if (empty($pk)) {
             $this->addError('modelClass', "The table associated with $this->modelClass must have primary key(s).");
@@ -311,7 +321,8 @@ class Generator extends \yii\gii\Generator {
     /**
      * @inheritdoc
      */
-    public function generate() {
+    public function generate()
+    {
         $files = [];
         $relations = $this->generateRelations();
         $this->relations = $relations;
@@ -343,11 +354,11 @@ class Generator extends \yii\gii\Generator {
             ];
             // model :
             $files[] = new CodeFile(
-                    Yii::getAlias('@' . str_replace('\\', '/', $this->nsModel)) . '/base/' . $modelClassName . '.php', $this->render('model.php', $params)
+                Yii::getAlias('@' . str_replace('\\', '/', $this->nsModel)) . '/base/' . $modelClassName . '.php', $this->render('model.php', $params)
             );
             if (!$this->generateBaseOnly) {
                 $files[] = new CodeFile(
-                        Yii::getAlias('@' . str_replace('\\', '/', $this->nsModel)) . '/' . $modelClassName . '.php', $this->render('model-extended.php', $params)
+                    Yii::getAlias('@' . str_replace('\\', '/', $this->nsModel)) . '/' . $modelClassName . '.php', $this->render('model-extended.php', $params)
                 );
             }
             // query :
@@ -357,7 +368,7 @@ class Generator extends \yii\gii\Generator {
                     'modelClassName' => $modelClassName,
                 ];
                 $files[] = new CodeFile(
-                        Yii::getAlias('@' . str_replace('\\', '/', $this->queryNs)) . '/' . $queryClassName . '.php', $this->render('query.php', $params)
+                    Yii::getAlias('@' . str_replace('\\', '/', $this->queryNs)) . '/' . $queryClassName . '.php', $this->render('query.php', $params)
                 );
             }
 
@@ -384,7 +395,8 @@ class Generator extends \yii\gii\Generator {
      * @param TableSchema $table
      * @return array modified $relations
      */
-    private function generateManyManyRelations($table, $fks, $relations) {
+    private function generateManyManyRelations($table, $fks, $relations)
+    {
         $db = $this->getDbConnection();
         $table0 = $fks[$table->primaryKey[0]][0];
         $table1 = $fks[$table->primaryKey[1]][0];
@@ -419,7 +431,8 @@ class Generator extends \yii\gii\Generator {
     /**
      * @return array the generated relation declarations
      */
-    protected function generateRelations() {
+    protected function generateRelations()
+    {
         if (!$this->generateRelations) {
             return [];
         }
@@ -518,7 +531,8 @@ class Generator extends \yii\gii\Generator {
      * @param array $refs reference constraint
      * @return string the generated link parameter.
      */
-    protected function generateRelationLink($refs) {
+    protected function generateRelationLink($refs)
+    {
         $pairs = [];
         foreach ($refs as $a => $b) {
             $pairs[] = "'$a' => '$b'";
@@ -536,7 +550,8 @@ class Generator extends \yii\gii\Generator {
      * @return array|boolean the relevant foreign key constraint information if the table is a junction table,
      * or false if the table is not a junction table.
      */
-    protected function checkPivotTable($table) {
+    protected function checkPivotTable($table)
+    {
         $pk = $table->primaryKey;
         if (count($pk) !== 2) {
             return false;
@@ -566,7 +581,8 @@ class Generator extends \yii\gii\Generator {
      * @param boolean $multiple whether this is a has-many relation
      * @return string the relation name
      */
-    protected function generateRelationName($relations, $table, $key, $multiple) {
+    protected function generateRelationName($relations, $table, $key, $multiple)
+    {
         if (!empty($key) && substr_compare($key, 'id', -2, 2, true) === 0 && strcasecmp($key, 'id')) {
             $key = rtrim(substr($key, 0, -2), '_');
         }
@@ -587,14 +603,16 @@ class Generator extends \yii\gii\Generator {
     /**
      * @return Connection the DB connection as specified by [[db]].
      */
-    public function getDbConnection() {
+    public function getDbConnection()
+    {
         return Yii::$app->get($this->db, false);
     }
 
     /**
      * @return string the controller ID (without the module ID prefix)
      */
-    public function getControllerID() {
+    public function getControllerID()
+    {
         $pos = strrpos($this->controllerClass, '\\');
         $class = substr(substr($this->controllerClass, $pos + 1), 0, -10);
 
@@ -604,7 +622,8 @@ class Generator extends \yii\gii\Generator {
     /**
      * @return string the controller view path
      */
-    public function getViewPath() {
+    public function getViewPath()
+    {
         if (empty($this->viewPath)) {
             return Yii::getAlias('@app/views/' . $this->getControllerID());
         } else {
@@ -612,7 +631,8 @@ class Generator extends \yii\gii\Generator {
         }
     }
 
-    public function getNameAttribute() {
+    public function getNameAttribute()
+    {
         foreach ($this->tableSchema->getColumnNames() as $name) {
             foreach ($this->nameAttribute as $nameAttr) {
                 if (!strcasecmp($name, $nameAttr)) {
@@ -627,7 +647,8 @@ class Generator extends \yii\gii\Generator {
         return $pk;
     }
 
-    public function getNameAttributeFK($tableName) {
+    public function getNameAttributeFK($tableName)
+    {
         $tableSchema = $this->getDbConnection()->getTableSchema($tableName);
         foreach ($tableSchema->getColumnNames() as $name) {
             if (in_array($name, $this->nameAttribute)) {
@@ -645,7 +666,8 @@ class Generator extends \yii\gii\Generator {
      * @param array $columns columns to check for autoIncrement property
      * @return boolean whether any of the specified columns is auto incremental.
      */
-    protected function isColumnAutoIncremental($table, $columns) {
+    protected function isColumnAutoIncremental($table, $columns)
+    {
         foreach ($columns as $column) {
             if (isset($table->columns[$column]) && $table->columns[$column]->autoIncrement) {
                 return true;
@@ -660,7 +682,8 @@ class Generator extends \yii\gii\Generator {
      * @param \yii\db\TableSchema $table the table schema
      * @return array the generated attribute labels (name => label)
      */
-    public function generateLabels($table) {
+    public function generateLabels($table)
+    {
         $labels = [];
         foreach ($table->columns as $column) {
             if ($this->generateLabelsFromComments && !empty($column->comment)) {
@@ -684,7 +707,8 @@ class Generator extends \yii\gii\Generator {
      * @param \yii\db\TableSchema $table the table schema
      * @return array the generated validation rules
      */
-    public function generateRules($table) {
+    public function generateRules($table)
+    {
         $types = [];
         $lengths = [];
         foreach ($table->columns as $column) {
@@ -761,7 +785,8 @@ class Generator extends \yii\gii\Generator {
         return $rules;
     }
 
-    public function generateFK($tableSchema = null) {
+    public function generateFK($tableSchema = null)
+    {
         if (is_null($tableSchema)) {
             $tableSchema = $this->getTableSchema();
         }
@@ -770,7 +795,7 @@ class Generator extends \yii\gii\Generator {
             foreach ($this->relations[$tableSchema->fullName] as $relations) {
                 foreach ($tableSchema->foreignKeys as $value) {
                     if (isset($relations[5]) && $relations[3] == $value[0])
-                    $fk[$relations[5]] = $relations;
+                        $fk[$relations[5]] = $relations;
                 }
             }
         }
@@ -782,7 +807,8 @@ class Generator extends \yii\gii\Generator {
      * @param ColumnSchema $column
      * @return string
      */
-    public function generateColumnFormat($column) {
+    public function generateColumnFormat($column)
+    {
         if ($column->phpType === 'boolean') {
             return 'boolean';
         } elseif ($column->type === 'text') {
@@ -802,7 +828,8 @@ class Generator extends \yii\gii\Generator {
      * Generates validation rules for the search model.
      * @return array the generated validation rules
      */
-    public function generateSearchRules() {
+    public function generateSearchRules()
+    {
         if (($table = $this->getTableSchema()) === false) {
             return ["[['" . implode("', '", $this->getColumnNames()) . "'], 'safe']"];
         }
@@ -844,7 +871,8 @@ class Generator extends \yii\gii\Generator {
     /**
      * @return array searchable attributes
      */
-    public function getSearchAttributes() {
+    public function getSearchAttributes()
+    {
         return $this->getColumnNames();
     }
 
@@ -852,7 +880,8 @@ class Generator extends \yii\gii\Generator {
      * Generates the attribute labels for the search model.
      * @return array the generated attribute labels (name => label)
      */
-    public function generateSearchLabels() {
+    public function generateSearchLabels()
+    {
         /* @var $model Model */
         $model = new $this->modelClass();
         $attributeLabels = $model->attributeLabels();
@@ -880,7 +909,8 @@ class Generator extends \yii\gii\Generator {
      * Generates search conditions
      * @return array
      */
-    public function generateSearchConditions() {
+    public function generateSearchConditions()
+    {
         $columns = [];
         if (($table = $this->getTableSchema()) === false) {
             $class = $this->modelClass;
@@ -922,8 +952,8 @@ class Generator extends \yii\gii\Generator {
         $conditions = [];
         if (!empty($hashConditions)) {
             $conditions[] = "\$query->andFilterWhere([\n"
-                    . str_repeat(' ', 12) . implode("\n" . str_repeat(' ', 12), $hashConditions)
-                    . "\n" . str_repeat(' ', 8) . "]);\n";
+                . str_repeat(' ', 12) . implode("\n" . str_repeat(' ', 12), $hashConditions)
+                . "\n" . str_repeat(' ', 8) . "]);\n";
         }
         if (!empty($likeConditions)) {
             $conditions[] = "\$query" . implode("\n" . str_repeat(' ', 12), $likeConditions) . ";\n";
@@ -936,7 +966,8 @@ class Generator extends \yii\gii\Generator {
      * Generates URL parameters
      * @return string
      */
-    public function generateUrlParams() {
+    public function generateUrlParams()
+    {
         $pks = $this->tableSchema->primaryKey;
         if (count($pks) === 1) {
             if (is_subclass_of($this->modelClass, 'yii\mongodb\ActiveRecord')) {
@@ -958,7 +989,8 @@ class Generator extends \yii\gii\Generator {
         }
     }
 
-    public function getTableSchema() {
+    public function getTableSchema()
+    {
         return $this->tableSchema;
     }
 
@@ -966,7 +998,8 @@ class Generator extends \yii\gii\Generator {
      * Generates action parameters
      * @return string
      */
-    public function generateActionParams() {
+    public function generateActionParams()
+    {
         $pks = $this->tableSchema->primaryKey;
         if (count($pks) === 1) {
             return '$id';
@@ -979,7 +1012,8 @@ class Generator extends \yii\gii\Generator {
      * Generates parameter tags for phpdoc
      * @return array parameter tags for phpdoc
      */
-    public function generateActionParamComments() {
+    public function generateActionParamComments()
+    {
         /* @var $class ActiveRecord */
         $pks = $this->tableSchema->primaryKey;
         if (($table = $this->getTableSchema()) === false) {
@@ -1005,7 +1039,8 @@ class Generator extends \yii\gii\Generator {
     /**
      * Validates the [[db]] attribute.
      */
-    public function validateDb() {
+    public function validateDb()
+    {
         if (!Yii::$app->has($this->db)) {
             $this->addError('db', 'There is no application component named "db".');
         } elseif (!Yii::$app->get($this->db) instanceof Connection) {
@@ -1016,7 +1051,8 @@ class Generator extends \yii\gii\Generator {
     /**
      * Validates the [[tableName]] attribute.
      */
-    public function validateTableName() {
+    public function validateTableName()
+    {
         if (strpos($this->tableName, '*') !== false && substr_compare($this->tableName, '*', -1, 1)) {
             $this->addError('tableName', 'Asterisk is only allowed as the last character.');
 
@@ -1042,7 +1078,8 @@ class Generator extends \yii\gii\Generator {
     /**
      * @return array the table names that match the pattern specified by [[tableName]].
      */
-    protected function getTableNames() {
+    protected function getTableNames()
+    {
         if ($this->tableNames !== null) {
             return $this->tableNames;
         }
@@ -1079,7 +1116,8 @@ class Generator extends \yii\gii\Generator {
      * @param string $tableName the table name (which may contain schema prefix)
      * @return string the generated table name
      */
-    public function generateTableName($tableName) {
+    public function generateTableName($tableName)
+    {
         if (!$this->useTablePrefix) {
             return $tableName;
         }
@@ -1099,7 +1137,8 @@ class Generator extends \yii\gii\Generator {
      * @param boolean $useSchemaName should schema name be included in the class name, if present
      * @return string the generated class name
      */
-    protected function generateClassName($tableName, $useSchemaName = null) {
+    protected function generateClassName($tableName, $useSchemaName = null)
+    {
         if (isset($this->classNames[$tableName])) {
             return $this->classNames[$tableName];
         }
@@ -1139,7 +1178,8 @@ class Generator extends \yii\gii\Generator {
      * @param string $modelClassName model class name
      * @return string generated class name
      */
-    protected function generateQueryClassName($modelClassName) {
+    protected function generateQueryClassName($modelClassName)
+    {
         $queryClassName = $this->queryClass;
         if (empty($queryClassName) || strpos($this->tableName, '*') !== false) {
             $queryClassName = $modelClassName . 'Query';
@@ -1147,7 +1187,8 @@ class Generator extends \yii\gii\Generator {
         return $queryClassName;
     }
 
-    public function isModelExist() {
+    public function isModelExist()
+    {
         $class = $this->modelClass;
         try {
             if (!class_exists($class)) {
@@ -1157,5 +1198,39 @@ class Generator extends \yii\gii\Generator {
             return false;
         }
     }
+
+    public function getBaseClassName($class)
+    {
+        return array_pop(explode('\\', $class));
+    }
+
+    public function getClassFromString($string)
+    {
+        $parts = $this->parseClassString($string);
+        if (isset($parts['class']) && $parts['class']) {
+            return $parts['class'][0];
+        }
+        return false;
+    }
+
+    public function simplifyFNQ($string)
+    {
+        $parts = $this->parseClassString($string);
+        if ($parts) {
+            return $parts['pre'][0].$this->getBaseClassName($parts['class'][0]).$parts['post'][0];
+        }
+        return $string;
+    }
+
+    public function parseClassString($string)
+    {
+        $re = '/(?\'pre\'^[^\\\\]+)(?\'class\'[^\(]+)(?\'post\'.+)/';
+        preg_match($re, $string, $matches, PREG_OFFSET_CAPTURE, 0);
+        if (isset($matches['class']) && $matches['class']) {
+            return $matches;
+        }
+        return false;
+    }
+
 
 }
