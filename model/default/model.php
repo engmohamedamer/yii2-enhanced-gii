@@ -4,7 +4,7 @@
  */
 
 /* @var $this yii\web\View */
-/* @var $generator mootensai\enhancedgii\crud\Generator */
+/* @var $generator mootensai\enhancedgii\model\Generator */
 /* @var $tableName string full table name */
 /* @var $className string class name */
 /* @var $queryClassName string query class name */
@@ -19,8 +19,16 @@ echo "<?php\n";
 namespace <?= $generator->nsModel ?>\base;
 
 use Yii;
+use <?= ltrim($generator->baseModelClass, '\\'); ?>;
+<?php if ($queryClassName) { ?>
+use <?php echo ltrim($queryClassFullName = '\\' . $generator->queryNs . '\\' . $queryClassName,'\\'); ?>;
+<?php } ?>
+use mootensai\relation\RelationTrait;
 <?php if ($generator->createdAt || $generator->updatedAt): ?>
 use yii\behaviors\TimestampBehavior;
+<?php if (!empty($generator->timestampValue) && $generator->timestampValue != 'time()'):?>
+use <?php echo ltrim($generator->getClassFromString($generator->timestampValue), '\\'); ?>;
+<?php endif; ?>
 <?php endif; ?>
 <?php if ($generator->createdBy || $generator->updatedBy): ?>
 use yii\behaviors\BlameableBehavior;
@@ -42,10 +50,10 @@ use mootensai\behaviors\UUIDBehavior;
 <?php endforeach; ?>
 <?php endif; ?>
  */
-class <?= $className ?> extends <?= '\\' . ltrim($generator->baseModelClass, '\\') . "\n" ?>
+class <?= $className ?> extends <?= $generator->getBaseClassName($generator->baseModelClass) . "\n" ?>
 {
 
-    use \mootensai\relation\RelationTrait;
+    use RelationTrait;
 
     /**
      * @inheritdoc
@@ -114,14 +122,14 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseModelClass, '\\
         || $generator->UUIDColumn): 
     echo "\n"; ?>/**
      * @inheritdoc
-     * @return type mixed
+     * @return array
      */ 
     public function behaviors()
     {
         return [
 <?php if ($generator->createdAt || $generator->updatedAt):?>
             [
-                'class' => TimestampBehavior::className(),
+                'class' => TimestampBehavior::class,
 <?php if (!empty($generator->createdAt)):?>
                 'createdAtAttribute' => '<?= $generator->createdAt?>',
 <?php else :?>
@@ -133,13 +141,13 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseModelClass, '\\
                 'updatedAtAttribute' => false,
 <?php endif; ?>
 <?php if (!empty($generator->timestampValue) && $generator->timestampValue != 'time()'):?>
-                'value' => <?= $generator->timestampValue?>,
+                'value' => <?= $generator->simplifyFNQ($generator->timestampValue)?>,
 <?php endif; ?>
             ],
 <?php endif; ?>
 <?php if ($generator->createdBy || $generator->updatedBy):?>
             [
-                'class' => BlameableBehavior::className(),
+                'class' => BlameableBehavior::class,
 <?php if (!empty($generator->createdBy)):?>
                 'createdByAttribute' => '<?= $generator->createdBy?>',
 <?php else :?>
@@ -157,7 +165,7 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseModelClass, '\\
 <?php endif; ?>
 <?php if ($generator->UUIDColumn):?>
             [
-                'class' => UUIDBehavior::className(),
+                'class' => UUIDBehavior::class,
 <?php if (!empty($generator->UUIDColumn)):?>
                 'column' => '<?= $generator->UUIDColumn?>',
 <?php endif; ?>
@@ -173,11 +181,11 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseModelClass, '\\
 ?>
     /**
      * @inheritdoc
-     * @return <?= $queryClassFullName ?> the active query used by this AR class.
+     * @return <?= $queryClassName ?> the active query used by this AR class.
      */
     public static function find()
     {
-        return new <?= $queryClassFullName ?>(get_called_class());
+        return new <?= $queryClassName ?>(get_called_class());
     }
 <?php endif; ?>
 }
