@@ -47,6 +47,8 @@ foreach ($relations as $name => $rel) {
             'id' => '<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-form'
         ]
     ]); ?>
+    <div class="card">
+        <div class="card-body">
 
     <?= "<?= " ?>$form->errorSummary($model); ?>
 
@@ -55,6 +57,10 @@ foreach ($relations as $name => $rel) {
         echo "    <?= " . $generator->generateActiveField($attribute, $generator->generateFK()) . " ?>\n\n";
     }
 } ?>
+
+        </div>
+
+
 <?php
 foreach ($relations as $name => $rel) {
     $relID = Inflector::camel2id($rel[1]);
@@ -65,14 +71,14 @@ foreach ($relations as $name => $rel) {
     }
 }
 ?>
-    <div class="form-group">
+        <div class="card-footer">
         <?= "<?= " ?>Html::submitButton($model->isNewRecord ? <?= $generator->generateString('Create') ?> : <?= $generator->generateString('Update') ?>, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
 <?php if ($generator->cancelable): ?>
         <?= "<?= " ?>Html::a(Yii::t('app', 'Cancel'),['index'],['class'=> 'btn btn-danger', 'data-dismiss' => 'modal']) ?>
 <?php endif; ?>
     </div>
+    </div>
 
     <?= "<?php " ?>ActiveForm::end(); ?>
 
 </div>
-<?= "<?php " ?>$this->render('/layouts/flash'); ?>
