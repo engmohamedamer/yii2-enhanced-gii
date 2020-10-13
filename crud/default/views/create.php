@@ -20,9 +20,7 @@ $this->params['breadcrumbs'][] = ['label' => <?= ($generator->pluralize) ? $gene
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-create">
-
-    <h1 class="page-title"><?= "<?= " ?>Html::encode($this->title) ?></h1>
-
+    
     <?= "<?= " ?>$this->render('_form', [
         'model' => $model,
     ]) ?>
