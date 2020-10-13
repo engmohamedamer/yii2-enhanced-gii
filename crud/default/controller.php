@@ -85,6 +85,9 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
         $dataProvider = new ActiveDataProvider([
             'query' => <?= $modelClass ?>::find(),
         ]);
+        $dataProvider->setSort([
+            'defaultOrder' => ['id' => SORT_DESC ],
+        ]);
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
