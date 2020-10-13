@@ -39,7 +39,7 @@ use yii\filters\VerbFilter;
 /**
  * <?= $controllerClass ?> implements the CRUD actions for <?= $modelClass ?> model.
  */
-class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->baseControllerClass) . "\n" ?>
+class <?= $controllerClass ?> extends BackendController
 {
     public function behaviors()
     {
@@ -84,6 +84,10 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
 <?php else : ?>
         $dataProvider = new ActiveDataProvider([
             'query' => <?= $modelClass ?>::find(),
+        ]);
+
+        $dataProvider->setSort([
+             'defaultOrder' => ['id' => SORT_DESC ],
         ]);
 
         return $this->render('index', [
