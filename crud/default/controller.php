@@ -130,10 +130,10 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
         ];
 
         if ($model->loadAll(Yii::$app->request->post()) && $model->saveAll()) {
-
-            Yii::$app->getSession()->setFlash('success', [
-                'type' => 'success',
-                'message' => <?= $generator->generateString(Inflector::camel2words(StringHelper::basename($generator->modelClass)) .' was successfuly created') ?>,
+            Yii::$app->getSession()->setFlash('alert', [
+                'type' =>'success',
+                'body' =>  <?= $generator->generateString(Inflector::camel2words(StringHelper::basename($generator->modelClass)) .' was successfuly created') ?>,
+                'title' =>'',
             ]);
 
             if (!Yii::$app->request->isAjax) {
@@ -168,6 +168,11 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
             Yii::$app->getSession()->setFlash('success', [
                 'type' => 'success',
                 'message' => <?= $generator->generateString(Inflector::camel2words(StringHelper::basename($generator->modelClass)) .' was successfuly updated') ?>,
+            ]);
+            Yii::$app->getSession()->setFlash('alert', [
+                'type' =>'success',
+                'body' =>  Yii::t('backend', 'Data has been updated successfully'),
+                'title' =>'',
             ]);
 
             if (!Yii::$app->request->isAjax) {
