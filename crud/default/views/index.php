@@ -89,6 +89,8 @@ if ($generator->indexWidgetType === 'grid'):
         endforeach; ?>
         [
             'class' => 'kartik\grid\ActionColumn',
+            "width"=>"20%",
+            "template"=>'{update} {view} {delete}'
         ],
     ]; 
 <?php 
