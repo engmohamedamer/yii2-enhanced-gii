@@ -137,7 +137,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
             ]);
 
             if (!Yii::$app->request->isAjax) {
-                return $this->redirect(['update', <?= $urlParams ?>]);
+                return $this->redirect(['index']);
             } else {
                 return $this->actionUpdate($model->id);
             }
@@ -171,7 +171,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
             ]);
 
             if (!Yii::$app->request->isAjax) {
-                return $this->redirect(['update', <?= $urlParams ?>]);
+                    return $this->redirect(['index']);
             }
         }
         if (Yii::$app->request->isAjax) {
