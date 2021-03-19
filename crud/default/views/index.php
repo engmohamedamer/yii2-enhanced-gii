@@ -35,11 +35,11 @@ $this->registerJs($search);
     <div class="row mb-2">
         <div class="col-sm-6 headTitle">
             <div class="icon">
-                <i class="fas fa-users"></i>
+                <i class="fas fa-"></i>
             </div>
             <div class="title">
-                <h1 class="m-0 text-dark"><?= $generator->generateString(Inflector::camel2words($baseModelClass))?></h1>
-                <p>List <?= $generator->generateString(Inflector::camel2words($baseModelClass))?></p>
+                <h1 class="m-0 text-dark"><?= Inflector::camel2words($baseModelClass)?></h1>
+                <p>List <?= Inflector::camel2words($baseModelClass)?></p>
             </div>
         </div>
         <div class="col-sm-6 actionBtns">
