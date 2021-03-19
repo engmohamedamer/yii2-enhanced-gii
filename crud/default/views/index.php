@@ -2,6 +2,8 @@
 
 use yii\helpers\Inflector;
 use yii\helpers\StringHelper;
+use rmrevin\yii\fontawesome\FAS;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $generator \mootensai\enhancedgii\crud\Generator */
@@ -15,8 +17,6 @@ echo "<?php\n";
 
 use yii\helpers\Html;
 use kartik\export\ExportMenu;
-use rmrevin\yii\fontawesome\FAS;
-use yii\helpers\Html;
 use <?= $generator->indexWidgetType === 'grid' ? "kartik\\grid\\GridView;" : "yii\\widgets\\ListView;" ?>
 
 /* @var $this yii\web\View */
