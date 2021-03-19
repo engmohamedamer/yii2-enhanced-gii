@@ -15,6 +15,8 @@ echo "<?php\n";
 
 use yii\helpers\Html;
 use kartik\export\ExportMenu;
+use rmrevin\yii\fontawesome\FAS;
+use yii\helpers\Html;
 use <?= $generator->indexWidgetType === 'grid' ? "kartik\\grid\\GridView;" : "yii\\widgets\\ListView;" ?>
 
 /* @var $this yii\web\View */
@@ -29,6 +31,26 @@ $search = "$('.search-button').click(function(){
 });";
 $this->registerJs($search);
 ?>
+<div class="content-header">
+    <div class="row mb-2">
+        <div class="col-sm-6 headTitle">
+            <div class="icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="title">
+                <h1 class="m-0 text-dark"><?= $generator->generateString(Inflector::camel2words($baseModelClass))?></h1>
+                <p>List <?= $generator->generateString(Inflector::camel2words($baseModelClass))?></p>
+            </div>
+        </div>
+        <div class="col-sm-6 actionBtns">
+            <?php echo Html::a(FAS::icon('user-plus').' '.Yii::t('backend', 'Add New Manger', [
+                    'modelClass' => 'User',
+                ]), ['create-manager'], ['class' => 'btn btn-info']) ?>
+        </div>
+    </div>
+</div>
+
+
 <div class="<?= Inflector::camel2id($baseModelClass) ?>-index">
 
 <?php if (!empty($generator->searchModelClass)): ?>
