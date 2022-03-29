@@ -129,7 +129,18 @@ if ($generator->indexWidgetType === 'grid'):
                         '<li class="dropdown-header">Export All Data</li>',
                     ],
                 ],
+                'exportConfig' => [
+                    ExportMenu::FORMAT_TEXT => false,
+                    ExportMenu::FORMAT_PDF => false,
+                    ExportMenu::FORMAT_HTML => false,
+                    ExportMenu::FORMAT_EXCEL => false,
+                ]
             ]) ,
+            'exportConfig' => [
+                GridView::CSV => ['label' => 'Save as CSV'],
+                GridView::EXCEL => [ ],
+
+            ],
         ],
     ]); ?>
 <?php 
