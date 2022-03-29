@@ -136,11 +136,11 @@ if ($generator->indexWidgetType === 'grid'):
                     ExportMenu::FORMAT_EXCEL => false,
                 ]
             ]) ,
-            'exportConfig' => [
-                GridView::CSV => ['label' => 'Save as CSV'],
-                GridView::EXCEL => [ ],
+        ],
+        'exportConfig' => [
+            GridView::CSV => ['label' => 'Save as CSV'],
+            GridView::EXCEL => [ ],
 
-            ],
         ],
     ]); ?>
 <?php 
