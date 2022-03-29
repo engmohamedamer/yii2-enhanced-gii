@@ -106,7 +106,7 @@ if ($generator->indexWidgetType === 'grid'):
         'pjax' => true,
         'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-<?= Inflector::camel2id(StringHelper::basename($generator->modelClass))?>']],
         'panel' => [
-            'type' => GridView::TYPE_PRIMARY,
+            'type' => GridView::TYPE_LIGHT,
             'heading' => '<span class="glyphicon glyphicon-book"></span>  ' . Html::encode($this->title),
         ],
         // set a label for default menu
