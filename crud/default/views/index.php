@@ -93,7 +93,7 @@ if ($generator->indexWidgetType === 'grid'):
         [
             'class' => 'kartik\grid\ActionColumn',
             "width"=>"20%",
-            "template"=>'{update} {view} {delete}'
+            "template"=>'{update} {view} '//{delete}
         ],
     ]; 
 <?php 
