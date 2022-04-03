@@ -54,7 +54,7 @@ foreach ($relations as $name => $rel) {
 
 <?php foreach ($generator->tableSchema->getColumnNames() as $attribute) {
     if (!in_array($attribute, $generator->skippedColumns)) {
-        echo "    <?= " . $generator->generateActiveField($attribute, $generator->generateFK()) . " ?>\n\n";
+        echo " <div class=\"col-md-4\">   <?= " . $generator->generateActiveField($attribute, $generator->generateFK()) . " ?> </div>\n\n";
     }
 } ?>
 
