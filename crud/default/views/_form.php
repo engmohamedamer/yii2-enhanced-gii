@@ -53,15 +53,11 @@ foreach ($relations as $name => $rel) {
     <?= "<?= " ?>$form->errorSummary($model); ?>
 
 <?php
-$i=0;
 foreach ($generator->tableSchema->getColumnNames() as $attribute) {
     if (!in_array($attribute, $generator->skippedColumns)) {
 
-        if ($i % 2 != 0) { echo "<div class='row'>" ;}
             echo " <div class=\"col-md-4\">   <?= " . $generator->generateActiveField($attribute, $generator->generateFK()) . " ?> </div>\n\n";
-        if ($i % 2 != 0) { echo  "</dev>\n\n" ; }
 
-        $i++;
     }
 } ?>
 
