@@ -55,6 +55,17 @@ class <?= $className ?> extends <?= $generator->getBaseClassName($generator->bas
 
     use RelationTrait;
 
+
+    /**
+    * This function helps \mootensai\relation\RelationTrait runs faster
+    * @return array relation names of this model
+    */
+    public function relationNames()
+    {
+    return [<?= "\n            '" . implode("',\n            '", array_keys($relations)) . "'\n        " ?>];
+    }
+
+
     /**
      * @inheritdoc
      */
