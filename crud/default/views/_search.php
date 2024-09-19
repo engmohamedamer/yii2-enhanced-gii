@@ -16,14 +16,19 @@ use yii\widgets\ActiveForm;
 /* @var $model <?= ltrim($generator->searchModelClass, '\\') ?> */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
-<div class="form-<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-search">
+<div class="w-100 form-academy-sport-search">
 
     <?= "<?php " ?>$form = ActiveForm::begin([
         'action' => ['index'],
+        'options' => [
+                    'class' => 'd-flex  align-items-center justify-content-between flex-wrap gap-3', //needs-validation
+                    'novalidate' => 'novalidate'
+        ],
         'method' => 'get',
     ]); ?>
 
+    <div class="flex-fill">
+        <div class="d-flex gap-2 flex-wrap">
 <?php
 $count = 0;
 foreach ($generator->getColumnNames() as $attribute) {
@@ -36,9 +41,22 @@ foreach ($generator->getColumnNames() as $attribute) {
     }
 }
 ?>
+        </div>
+    </div>
     <div class="form-group">
-        <?= "<?= " ?>Html::submitButton(<?= $generator->generateString('Search') ?>, ['class' => 'btn btn-primary']) ?>
-        <?= "<?= " ?>Html::resetButton(<?= $generator->generateString('Reset') ?>, ['class' => 'btn btn-default']) ?>
+        <?= "<?= " ?> Html::submitButton(
+            '<span class="isax mr-2 isax-search-normal-1"></span><span>' . Yii::t('common', 'Search') . '</span>',
+            ['class' => 'btn btn-info rounded-pill']
+        ) ?>
+
+        <?= "<?= " ?>  Html::resetButton(
+            '<span class="isax isax-close-circle mr-2"></span><span>' . yii::t('common', 'Reset') . '</span>',
+            [
+                'class' => 'btn btn-link text-body rounded-pill',
+                'onclick' => 'window.location.href = window.location.pathname;'
+            ]
+        ) ?>
+
     </div>
 
     <?= "<?php " ?>ActiveForm::end(); ?>

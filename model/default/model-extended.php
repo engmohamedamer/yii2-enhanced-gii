@@ -25,13 +25,9 @@ use \<?= $generator->nsModel ?>\base\<?= $className ?> as Base<?= $className ?>;
 class <?= $className ?> extends Base<?= $className . "\n" ?>
 {
 //    /**
-//     * @inheritdoc
+//     * @inheritdoc Add any required extra features here
 //     */
-//    public function rules()
-//    {
-//        return array_replace_recursive(parent::rules(),
-//	    []);
-//    }
+
 	
 <?php if ($generator->generateAttributeHints): ?>
     /**

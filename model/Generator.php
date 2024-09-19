@@ -39,18 +39,18 @@ class Generator extends \yii\gii\Generator
 
     public $tableSchema;
     public $db = 'db';
-    public $nsTraits = 'app\traits';
+    public $nsTraits = 'common\traits';
     public $tableName;
     public $nameAttribute = 'name, title';
     public $hiddenColumns = 'id, lock';
     public $skippedColumns = 'created_at, updated_at, created_by, updated_by, deleted_at, deleted_by, created, modified, deleted';
-    public $nsModel = 'app\models';
+    public $nsModel = 'common\models';
     public $modelClass;
     public $baseModelClass = 'yii\db\ActiveRecord';
     public $nsSearchModel = 'app\models';
     public $searchModelClass;
     public $generateQuery = true;
-    public $queryNs = 'app\models';
+    public $queryNs = 'common\models';
     public $queryClass;
     public $queryBaseClass = 'yii\db\ActiveQuery';
     public $generateLabelsFromComments = false;

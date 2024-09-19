@@ -32,7 +32,6 @@ use <?= ltrim($generator->searchModelClass, '\\') . (isset($searchModelAlias) ? 
 <?php else : ?>
 use yii\data\ActiveDataProvider;
 <?php endif; ?>
-use <?= ltrim($generator->baseControllerClass, '\\') ?>;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -76,8 +75,11 @@ class <?= $controllerClass ?> extends BackendController
 <?php if (!empty($generator->searchModelClass)): ?>
         $searchModel = new <?= isset($searchModelAlias) ? $searchModelAlias : $searchModelClass ?>();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->setSort([
+            'defaultOrder' => ['id' => SORT_DESC ],
+        ]);
 
-        return $this->render('index', [
+    return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -173,11 +175,7 @@ class <?= $controllerClass ?> extends BackendController
                 'type' => 'success',
                 'message' => <?= $generator->generateString(Inflector::camel2words(StringHelper::basename($generator->modelClass)) .' was successfuly updated') ?>,
             ]);
-            Yii::$app->getSession()->setFlash('alert', [
-                'type' =>'success',
-                'body' =>  Yii::t('backend', 'Data has been updated successfully'),
-                'title' =>'',
-            ]);
+
 
             if (!Yii::$app->request->isAjax) {
                     return $this->redirect(['index']);
@@ -280,8 +278,6 @@ if (count($pks) === 1) {
     /**
     * Action to load a tabular form grid
     * for <?= $rel[1] . "\n" ?>
-    * @author Yohanes Candrajaya <moo.tensai@gmail.com>
-    * @author Jiwantoro Ndaru <jiwanndaru@gmail.com>
     *
     * @return mixed
     */

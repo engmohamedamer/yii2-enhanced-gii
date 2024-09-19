@@ -32,12 +32,12 @@ echo $form->field($generator, 'queryBaseClass');
 <?= $form->field($generator, 'generateAttributeHints')->checkbox(); ?>
     </div>
 </div>    
-<div class="row">
-    <div class="col-md-12">
-<?= $form->field($generator, 'generateBaseOnly')->checkbox(); ?>
-    </div>
-</div>
-<?= $form->field($generator, 'optimisticLock'); ?>
+<!--<div class="row">-->
+<!--    <div class="col-md-12">-->
+<?php //= $form->field($generator, 'generateBaseOnly')->checkbox(); ?>
+<!--    </div>-->
+<!--</div>-->
+<? //= $form->field($generator, 'optimisticLock'); ?>
 <?= "<h4>Timestamp Behaviors</h4>"; ?>
 <div class="row">
     <div class="col-md-3">
@@ -65,7 +65,7 @@ echo "<h4>Blameable Behaviors</h4>";
     </div>
 </div>    
 <?php
-echo $form->field($generator, 'UUIDColumn');
+//echo $form->field($generator, 'UUIDColumn');
 //echo "<h4>Soft Delete Trait</h4>";
 //echo $form->field($generator, 'deletedBy');
 //echo $form->field($generator, 'deletedAt');
